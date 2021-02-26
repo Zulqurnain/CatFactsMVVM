@@ -176,8 +176,6 @@ The release prepared for GitHub should follow these instructions:
  - *Release title:* Version [Full version] (e.g. v1.2.3.100)
  - *Describe this release:* Detailed release notes.
 
-Release notes should mention all tickets included in the release with link to them using Markdown. It should also mention release date explicitly. Any other useful information that should be part of release notes anywhere, should also go here.
-
 
 ## Contributing
 
