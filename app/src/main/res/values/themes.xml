@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme -->
+    <style name="CompatTheme" parent="Theme.MaterialComponents.Light.NoActionBar" />
+
+    <!-- Customize api level theme here -->
+    <style name="BaseTheme" parent="CompatTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:windowBackground">@color/windowBackgroundColor</item>
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+        <item name="android:textColorPrimaryInverse">@color/primaryTextColorInverse</item>
+        <item name="android:textColorHint">@color/hintTextColor</item>
+        <item name="android:textColorHintInverse">@color/hintTextColorInverse</item>
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="AppTheme" parent="BaseTheme" />
+
+    <style name="AppTheme.Splash">
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+    <style name="AppTheme.Transparent">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+</resources>

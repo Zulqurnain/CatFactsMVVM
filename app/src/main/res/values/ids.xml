@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="calendar" type="id" />
+    <item name="position" type="id" />
+    <item name="tag" type="id" />
+    <item name="image_url" type="id" />
+</resources>

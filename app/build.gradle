@@ -1,0 +1,220 @@
+import groovy.json.JsonSlurper
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'dagger.hilt.android.plugin'
+
+
+def appVersionCode = 1
+def appVersionName = "1.0.1"
+
+def stagingVersionSuffix = "Build-1"
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation" : "$projectDir/schemas".toString(),
+//                        "dagger.gradle.incremental" : "true",
+                        "room.incremental" : "true",
+                ]
+            }
+        }
+        applicationId "com.jutt.catfactsfeeddemo"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode appVersionCode
+        versionName appVersionName
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+
+        resConfigs "en", "ur"
+
+        buildConfigField("String", "APPLICATION_FILE_PROVIDER", 'APPLICATION_ID + ".FileProvider"')
+
+        def mobileAppScheme = "catfactsdemo"
+        buildConfigField("String", "MOBILE_APP_SCHEME", '"' + mobileAppScheme + '"')
+        buildConfigField("String", "APL", '"https://play.google.com/store/apps/details?id=' + applicationId + '"')
+        manifestPlaceholders = [
+                mobileAppScheme      : mobileAppScheme,
+        ]
+    }
+
+    signingConfigs {
+        internalConfig {
+            def credsFilePath = file("signings/credentials_internal.json")
+            def credsFile = new File(credsFilePath.toString(), "").getText('UTF-8')
+            def json = new JsonSlurper().parseText(credsFile)
+            storeFile file(json.android.storeFile)
+            storePassword = json.android.storePassword
+            keyAlias = json.android.keyAlias
+            keyPassword = json.android.keyPassword
+        }
+        storeConfig {
+            def credsFilePath = file("signings/credentials_store.json")
+            def credsFile = new File(credsFilePath, "").getText('UTF-8')
+            def json = new JsonSlurper().parseText(credsFile)
+            storeFile file(json.android.storeFile)
+            storePassword = json.android.storePassword
+            keyAlias = json.android.keyAlias
+            keyPassword = json.android.keyPassword
+        }
+    }
+
+    flavorDimensions "environment"
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            versionNameSuffix "-debug (${appVersionCode})"
+            applicationIdSuffix ".internal"
+//            manifestPlaceholders.put("crashlyticsEnabled", true)
+        }
+        internal {
+            debuggable true
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+            matchingFallbacks = ['debug']
+            signingConfig signingConfigs.internalConfig
+            versionNameSuffix " (${stagingVersionSuffix})"
+            applicationIdSuffix ".internal"
+//            manifestPlaceholders.put("crashlyticsEnabled", true)
+        }
+        release {
+            debuggable false
+            minifyEnabled false
+            shrinkResources false
+            matchingFallbacks = ['debug']
+            signingConfig signingConfigs.storeConfig
+//            manifestPlaceholders.put("crashlyticsEnabled", true)
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        staging {
+            def scheme = "https"
+            def host = "cat-fact.herokuapp.com"
+            dimension "environment"
+            versionNameSuffix "-staging"
+            buildConfigField("String", "API_HOST_SCHEME", "\"${scheme}\"")
+            buildConfigField("String", "BASE_URL", "\"${scheme}" + "://" + "${host}" + "/" + "\"")
+            buildConfigField("String", "API_BASE_URL", "\"${scheme}" + "://" + "${host}" + "/" + "\"")
+            manifestPlaceholders.put("host", host)
+            manifestPlaceholders.put("usesCleartextTraffic", true)
+        }
+        live {
+            def scheme = "https"
+            def host = "cat-fact.herokuapp.com"
+            versionNameSuffix "-live"
+            buildConfigField("String", "API_HOST_SCHEME", "\"${scheme}\"")
+            buildConfigField("String", "BASE_URL", "\"${scheme}" + "://" + "${host}" + "/" + "\"")
+            buildConfigField("String", "API_BASE_URL", "\"${scheme}" + "://" + "${host}" + "/" + "\"")
+            manifestPlaceholders.put("host", host)
+            manifestPlaceholders.put("usesCleartextTraffic", true)
+        }
+    }
+    /**
+     * To skip assign true
+     */
+    def variantFilterSkipMap = [
+            stagingDebug          : true,
+            stagingRelease        : true,
+            liveDebug             : true,
+            liveRelease           : false,
+            liveInternal          : true,
+            stagingInternal       : false
+    ]
+    variantFilter { variant ->
+        setIgnore(variantFilterSkipMap[variant.name] ?: false)
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "MyAppV${appVersionName}.${appVersionCode}_${variant.name.capitalize()}.apk"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+    kapt {
+        correctErrorTypes true
+    }
+    buildFeatures {
+        dataBinding true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation platform("com.google.firebase:firebase-bom:$rootProject.firebaseBomVersion")
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
+    implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
+    implementation "androidx.lifecycle:lifecycle-process:$rootProject.lifecycleProcessVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.multidex:multidex:$rootProject.multidexVersion"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    implementation "androidx.vectordrawable:vectordrawable-animated:$rootProject.vectorDrawableVersion"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    implementation "com.google.android.material:material:$rootProject.materialDesignVersion"
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+    implementation "com.jakewharton.timber:timber:$rootProject.timber"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$rootProject.kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+    implementation "pub.devrel:easypermissions:$rootProject.easyPermissions"
+    implementation "androidx.work:work-runtime-ktx:$rootProject.workRuntimeVersion"
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okHttpLoggingInterceptorVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+
+    //Dagger - Hilt
+    implementation "com.google.dagger:hilt-android:$rootProject.daggerHiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$rootProject.daggerHiltVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$rootProject.hiltLifeCycleVersion"
+    kapt "androidx.hilt:hilt-compiler:$rootProject.hiltLifeCycleVersion"
+
+    // Activity KTX for viewModels()
+    implementation "androidx.activity:activity-ktx:$rootProject.activityKtx"
+
+    implementation "com.intuit.sdp:sdp-android:$rootProject.androidSDP"
+    implementation "com.intuit.ssp:ssp-android:$rootProject.androidSSP"
+    implementation "com.github.vipafattal:KotlinRecycler:$rootProject.kotlinRecycler"
+
+    implementation 'com.blankj:utilcodex:1.30.5'
+
+    debugImplementation "com.amitshekhar.android:debug-db:$rootProject.debugDBAndroid"
+
+    implementation "io.coil-kt:coil:0.11.0"
+    implementation "io.coil-kt:coil-svg:0.11.0"
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}

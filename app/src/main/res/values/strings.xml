@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MedicineEat</string>
+
+    <string name="morning">Morning</string>
+    <string name="my_medicines">My Medicines</string>
+    <string name="transition_appLogo">Logo Transition</string>
+
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-files-path
+        name="images"
+        path="/" />
+    <external-path
+        name="external_files"
+        path="." />
+    <external-files-path
+        name="images"
+        path="Pictures" />
+    <external-path
+        name="images"
+        path="Android/data/com.jutt.catfactsfeeddemo/files/Pictures" />
+</paths>

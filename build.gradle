@@ -1,0 +1,80 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    // Define versions in a single place
+    ext {
+        // Sdk and tools
+        compileSdkVersion = 29
+        minSdkVersion = 21
+        targetSdkVersion = 29
+        // Build dependencies
+        gradleVersion = '4.1.1'
+        kotlinVersion = '1.4.30'
+        googleServicesVersion = '4.3.2'
+        firebaseCrashylaticsToolsVersion = '2.3.0'
+        // App dependencies
+        appCompatVersion = '1.3.0-beta01'
+        activityKtx = '1.2.0'
+        firebaseBomVersion = '26.3.0'
+        cardViewVersion = '1.0.0'
+        circularImageViewVersion = '3.1.0'
+        constraintLayoutVersion = '2.0.4'
+        coroutinesVersion = '1.3.9'
+        easyPermissions = "3.0.0"
+        firebaseCrashlyticsVersion = '17.3.0'
+        fragmentVersion = '1.3.0'
+        glideVersion = '4.11.0'
+        gsonVersion = '2.8.6'
+        imageCompressor = '3.0.0'
+        ktxVersion = '1.3.2'
+        lifecycleVersion = '2.3.0'
+        lifecycleProcessVersion = '2.3.0'
+        materialDesignVersion = '1.3.0'
+        multidexVersion = '2.0.1'
+        recyclerViewVersion = '1.2.0-beta02'
+        okHttpLoggingInterceptorVersion = '4.7.2'
+        retrofitVersion = '2.9.0'
+        roomVersion = '2.2.6'
+        rxAndroidVersion = '2.1.1'
+        rxJavaVersion = '2.2.19'
+        timber = '4.7.1'
+        vectorDrawableVersion = '1.1.0'
+        workRuntimeVersion = "2.5.0"
+        viewPager2Version = "1.0.0"
+        toolTipVersion = "1.1.5"
+        imageViewerVersion = "1.0.1"
+        segmentedControls = '1.2.0'
+        debugDBAndroid = '1.0.6'
+        pagingKtxRuntime = '2.1.2'
+        androidSDP = '1.0.6'
+        androidSSP = '1.0.6'
+        advancedWebView = 'v3.0.0'
+        kotlinRecycler = "1.2.1"
+        daggerHiltVersion = "2.33-beta"
+        hiltLifeCycleVersion = "1.0.0-alpha03"
+    }
+
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradleVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$daggerHiltVersion"
+
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
