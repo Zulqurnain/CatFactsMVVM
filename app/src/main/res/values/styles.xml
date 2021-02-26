@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:fontFamily">@font/advent_pro_thin</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
+    </style>
+
+</resources>

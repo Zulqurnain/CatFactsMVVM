@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- GENERIC COLORS -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="translucent_white">#D9FFFFFF</color>
+    <color name="gray1">#eeebf2</color>
+    <color name="pizza">#CEA812</color>
+    <!-- APP COLORS -->
+    <color name="colorPrimary">#5c5777</color>
+    <color name="colorPrimaryVariant">#FF8823A8</color>
+    <color name="colorOnPrimary">@color/white</color>
+    <color name="colorSecondary">#FFFFFFFF</color>
+    <color name="colorSecondaryVariant">#FFE776B2</color>
+    <color name="colorOnSecondary">@color/black</color>
+    <color name="windowBackgroundColor">#FFF8F8F8</color>
+    <color name="primaryTextColor">#484848</color>
+    <color name="primaryTextColorInverse">#FFFFFFFF</color>
+    <color name="hintTextColor">#BEC2C9</color>
+    <color name="hintTextColorInverse">#FFF8F8F8</color>
+
+</resources>

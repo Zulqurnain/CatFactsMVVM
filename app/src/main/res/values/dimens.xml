@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- Exact dimensions from Designs (divided by 3) -->
+    <dimen name="margin_design_3">1dp</dimen>
+    <dimen name="margin_design_6">2dp</dimen>
+    <dimen name="margin_design_15">5dp</dimen>
+    <dimen name="margin_design_20">7dp</dimen>
+    <dimen name="margin_design_30">10dp</dimen>
+    <dimen name="margin_design_36">12dp</dimen>
+    <dimen name="margin_design_40">13dp</dimen>
+    <dimen name="margin_design_48">16dp</dimen>
+    <dimen name="margin_design_52">17dp</dimen>
+    <dimen name="margin_design_63">21dp</dimen>
+    <dimen name="margin_design_80">26dp</dimen>
+    <dimen name="margin_design_180">60dp</dimen>
+    <dimen name="margin_design_196">65dp</dimen>
+    <dimen name="margin_design_258">86dp</dimen>
+    <dimen name="margin_design_340">108dp</dimen>
+
+</resources>
