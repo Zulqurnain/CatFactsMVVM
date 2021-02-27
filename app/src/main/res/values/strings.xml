@@ -1,8 +1,37 @@
 <resources>
-    <string name="app_name">MedicineEat</string>
+    <string name="app_name">Cat Facts</string>
 
     <string name="morning">Morning</string>
     <string name="my_medicines">My Medicines</string>
     <string name="transition_appLogo">Logo Transition</string>
+
+    <string name="dash">-</string>
+    <string name="empty"></string>
+
+    <!-- COMMON MESSAGES -->
+    <string name="thank_you">Thank You!</string>
+    <string name="error_message_empty_field">This field cannot be empty</string>
+    <string name="error_message_fallback">Something went wrong. Please try again later.</string>
+    <string name="error_message_server_error">We are unable to process your request at this time. Please try again later.</string>
+    <string name="error_title_network_not_available">Internet not available</string>
+    <string name="error_message_network_not_available">Please connect to Internet to proceed.</string>
+    <string name="error_message_push_id_not_available">We are unable to retrieve your push notification registration information. Please contact support or try again later.</string>
+    <string name="error_message_location_not_available">Unable to retrieve your location. Please check your location settings and try again.</string>
+    <string name="error_message_order_amount_invalid">The amount you entered does not match order amount. Please enter valid amount to continue.</string>
+    <string name="error_message_expense_amount_invalid">The amount you entered does not match expense limits. Please enter valid amount to continue.</string>
+    <string name="info_message_new_order">You have a new order awaiting</string>
+    <!-- COMMON BUTTONS -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="confirm">Confirm</string>
+    <string name="button_continue">Continue</string>
+    <string name="button_update">Update</string>
+    <string name="user_caps">USER</string>
+    <string name="date_example">7 Oct 1997 9:30 PM</string>
+
+    <!-- Settings -->
+    <string name="title_settings">Settings</string>
 
 </resources>

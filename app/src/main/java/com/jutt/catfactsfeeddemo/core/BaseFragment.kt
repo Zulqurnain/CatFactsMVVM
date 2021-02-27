@@ -13,11 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-abstract class BaseVVMFragment<VB : ViewBinding, VM : ViewModel> : AppSupportFragment() {
-
-    protected val viewModel: VM by lazy { ViewModelProvider(requireActivity()).get(getSharedViewModelClass()) }
-    protected abstract fun getSharedViewModelClass(): Class<VM>
-    protected fun getViewModelFactory(): (() -> ViewModelProvider.Factory)? = null
+abstract class BaseFragment<VB : ViewBinding> : AppSupportFragment() {
 
     private var _binding: ViewBinding? = null
     abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB

@@ -31,7 +31,6 @@ abstract class AppDatabase : RoomDatabase() {
             .addCallback(object : Callback() {
                 override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
                     super.onDestructiveMigration(db)
-//                    preferences.clearAuthUser()
                 }
             })
             .build()

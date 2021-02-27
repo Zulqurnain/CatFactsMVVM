@@ -2,7 +2,6 @@ package com.jutt.catfactsfeeddemo.data.network
 
 import com.jutt.catfactsfeeddemo.BuildConfig
 import com.jutt.catfactsfeeddemo.data.models.AnimalFact
-import com.jutt.catfactsfeeddemo.data.repositories.PreferencesRepository
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
