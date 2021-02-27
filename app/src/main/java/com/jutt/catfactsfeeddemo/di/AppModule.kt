@@ -2,11 +2,13 @@ package com.jutt.catfactsfeeddemo.di
 
 import android.content.Context
 import com.jutt.catfactsfeeddemo.BuildConfig
+import com.jutt.catfactsfeeddemo.application.MyApp
 import com.jutt.catfactsfeeddemo.data.network.ApiService
 import com.jutt.catfactsfeeddemo.data.persistence.AppDatabase
 import com.jutt.catfactsfeeddemo.data.persistence.daos.AnimalFactsDao
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
@@ -29,7 +31,11 @@ object NamedHilts {
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Singleton
+    @Provides
+    fun provideContext(@ApplicationContext appContext: Context): Context = appContext
+
+
+    @Reusable
     @Provides
     fun provideCatsAPIClientBuild(): OkHttpClient.Builder = OkHttpClient.Builder()
         .readTimeout(30, TimeUnit.SECONDS)
@@ -39,7 +45,8 @@ object AppModule {
                 if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
                 else HttpLoggingInterceptor.Level.NONE
         })
-    @Singleton
+
+    @Reusable
     @Provides
     fun provideCatsAPIClient(builder: OkHttpClient.Builder): ApiService = Retrofit.Builder()
         .baseUrl(BuildConfig.API_BASE_URL)
@@ -49,18 +56,21 @@ object AppModule {
         .create(ApiService::class.java)
 
     @Provides
+    @Reusable
     @Named(NamedHilts.REPOSITORY_DISPATCHER)
     fun provideRepositoryDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
     @Provides
+    @Reusable
     @Named(NamedHilts.LOGGING_ENABLED)
     fun provideLoggingEnabled(): Boolean = !BuildConfig.DEBUG
 
+    @Reusable
     @Provides
-    @Singleton
     fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
         AppDatabase.buildDatabase(context = context)
 
+    @Reusable
     @Provides
     fun provideCatFactsDao(database: AppDatabase): AnimalFactsDao = database.catFactsDao()
 

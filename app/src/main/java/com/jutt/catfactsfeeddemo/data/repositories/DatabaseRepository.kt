@@ -10,25 +10,21 @@ import kotlin.concurrent.withLock
 @Singleton
 class DatabaseRepository @Inject constructor(private val database: AppDatabase) {
 
-    private val reentrantLock: ReentrantLock = ReentrantLock()
 
     fun catFactsDao() = database.catFactsDao()
 
-    fun clearAllFacts() {
-        reentrantLock.withLock {
-            catFactsDao().clearTable()
-        }
+    fun getAllFacts()  = catFactsDao().loadAll()
+
+    suspend fun clearAllFacts() {
+        catFactsDao().clearTable()
     }
 
-    fun addCatFact(facts: AnimalFact){
-        reentrantLock.withLock {
-            catFactsDao().insert(facts)
-        }
+    suspend fun upsertCatFact(vararg items: AnimalFact){
+        catFactsDao().insertOrUpdate(items.toList())
     }
-    fun addAllFacts(facts: List<AnimalFact>){
-        reentrantLock.withLock {
-            catFactsDao().insert(*facts.toTypedArray())
-        }
+
+    suspend fun addAllFacts(facts: List<AnimalFact>){
+        catFactsDao().insertOrUpdate(facts)
     }
 
 }

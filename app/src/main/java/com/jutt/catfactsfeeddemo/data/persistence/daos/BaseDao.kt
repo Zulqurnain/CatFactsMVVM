@@ -1,19 +1,38 @@
 package com.jutt.catfactsfeeddemo.data.persistence.daos
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Update
+import androidx.room.*
 
-interface BaseDao<T> {
+abstract class BaseDao<T> {
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract suspend fun insert(obj: T): Long
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg items: T)
-
-    @Update
-    fun update(vararg items: T)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract suspend fun insert(obj: List<T>): List<Long>
 
     @Delete
-    fun delete(vararg items: T)
+    abstract suspend fun delete(vararg items: T)
 
+    @Update
+    abstract suspend fun update(obj: T)
+
+    @Update
+    abstract suspend fun update(obj: List<T>)
+
+    @Transaction
+    open suspend fun insertOrUpdate(obj: T) {
+        val id = insert(obj)
+        if (id == -1L) update(obj)
+    }
+
+    @Transaction
+    open suspend fun insertOrUpdate(objList: List<T>) {
+        val insertResult = insert(objList)
+        val updateList = mutableListOf<T>()
+
+        for (i in insertResult.indices) {
+            if (insertResult[i] == -1L) updateList.add(objList[i])
+        }
+
+        if (updateList.isNotEmpty()) update(updateList)
+    }
 }

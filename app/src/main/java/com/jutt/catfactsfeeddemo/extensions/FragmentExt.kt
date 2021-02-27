@@ -19,16 +19,6 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 
-fun Fragment.hasOpenedDialogs(): Boolean {
-    val fragments: List<Fragment?> = activity?.supportFragmentManager?.fragments ?: listOf()
-    for (fragment in fragments) {
-        if (fragment is DialogFragment && fragment.isShowing()) {
-            return true
-        }
-    }
-    return false
-}
-
 fun Fragment.replaceFragmentInFragment(
     fragment: Fragment,
     frameId: Int,

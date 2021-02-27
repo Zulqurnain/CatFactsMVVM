@@ -3,8 +3,6 @@ package com.jutt.catfactsfeeddemo.core
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelLazy
@@ -13,11 +11,7 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.reflect.KClass
 
-abstract class BaseVVMActivity<VB : ViewBinding, VM : ViewModel> : AppSupportActivity() {
-
-    protected val viewModel: VM by lazy { ViewModelProvider(this).get(getViewModelClass()) }
-    protected abstract fun getViewModelClass(): Class<VM>
-    protected fun getViewModelFactory(): (() -> ViewModelProvider.Factory)? = null
+abstract class BaseNavigationActivity<VB : ViewBinding> : AppNavigationActivity() {
 
     private var _binding: ViewBinding? = null
     abstract val bindingInflater: (LayoutInflater) -> VB
@@ -31,6 +25,7 @@ abstract class BaseVVMActivity<VB : ViewBinding, VM : ViewModel> : AppSupportAct
         _binding = bindingInflater.invoke(layoutInflater)
         setContentView(requireNotNull(_binding).root)
         onReady()
+        onBindLiveData()
     }
 
     /**
@@ -38,6 +33,13 @@ abstract class BaseVVMActivity<VB : ViewBinding, VM : ViewModel> : AppSupportAct
      * This method will be executed after parent [onCreate] method
      */
     protected open fun onReady() {
+        //Optional
+    }
+    /**
+     * Here we may bind our observers to LiveData if some.
+     * This method will be executed after parent [onCreate] method
+     */
+    protected open fun onBindLiveData() {
         //Optional
     }
 

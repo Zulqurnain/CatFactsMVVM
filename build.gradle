@@ -7,7 +7,7 @@ buildscript {
         minSdkVersion = 21
         targetSdkVersion = 29
         // Build dependencies
-        gradleVersion = '4.1.1'
+        gradleVersion = '4.1.2'
         kotlinVersion = '1.4.30'
         googleServicesVersion = '4.3.2'
         firebaseCrashylaticsToolsVersion = '2.3.0'
@@ -49,7 +49,8 @@ buildscript {
         androidSSP = '1.0.6'
         advancedWebView = 'v3.0.0'
         kotlinRecycler = "1.2.1"
-        daggerHiltVersion = "2.33-beta"
+        groupie_version = "2.9.0"
+        daggerHiltVersion = "2.32-alpha"
         hiltLifeCycleVersion = "1.0.0-alpha03"
     }
 

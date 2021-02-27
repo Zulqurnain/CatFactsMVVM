@@ -44,6 +44,7 @@ android {
         manifestPlaceholders = [
                 mobileAppScheme      : mobileAppScheme,
         ]
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -127,7 +128,7 @@ android {
      * To skip assign true
      */
     def variantFilterSkipMap = [
-            stagingDebug          : true,
+            stagingDebug          : false,
             stagingRelease        : true,
             liveDebug             : true,
             liveRelease           : false,
@@ -139,7 +140,7 @@ android {
     }
     applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "MyAppV${appVersionName}.${appVersionCode}_${variant.name.capitalize()}.apk"
+            outputFileName = "FactsV${appVersionName}.${appVersionCode}_${variant.name.capitalize()}.apk"
         }
     }
     compileOptions {
@@ -153,7 +154,10 @@ android {
         correctErrorTypes true
     }
     buildFeatures {
-        dataBinding true
+        viewBinding true
+    }
+    testOptions {
+        unitTests.includeAndroidResources = true
     }
 }
 
@@ -207,6 +211,9 @@ dependencies {
     implementation "com.intuit.ssp:ssp-android:$rootProject.androidSSP"
     implementation "com.github.vipafattal:KotlinRecycler:$rootProject.kotlinRecycler"
 
+    implementation "com.xwray:groupie:$rootProject.groupie_version"
+    implementation "com.xwray:groupie-viewbinding:$rootProject.groupie_version"
+
     implementation 'com.blankj:utilcodex:1.30.5'
 
     debugImplementation "com.amitshekhar.android:debug-db:$rootProject.debugDBAndroid"
@@ -215,6 +222,19 @@ dependencies {
     implementation "io.coil-kt:coil-svg:0.11.0"
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    testImplementation "com.google.truth:truth:1.0.1"
+
+    androidTestImplementation "com.google.truth:truth:1.0.1"
+    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.2'
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:2.12.1"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'com.android.support:support-annotations:28.0.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'androidx.fragment:fragment-testing:1.3.0'
+    androidTestImplementation 'androidx.test:core-ktx:1.3.0'
+    androidTestImplementation 'org.mockito:mockito-core:2.19.0'
+
+    testImplementation 'org.mockito:mockito-core:2.19.0'
 }
