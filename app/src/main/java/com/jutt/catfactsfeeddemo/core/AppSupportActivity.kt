@@ -32,6 +32,16 @@ abstract class AppSupportActivity : AppCompatActivity(), EasyPermissions.Permiss
 
     }
 
+    override fun setTitle(title: CharSequence?) {
+        super.setTitle(title)
+        toolbarBinding?.toolbarTitle?.text = title
+    }
+
+    override fun setTitle(titleId: Int) {
+        super.setTitle(titleId)
+        toolbarBinding?.toolbarTitle?.text = getString(titleId)
+    }
+
     private fun registerConnectivityListener() {
         InternetConnectivityListener(applicationContext).apply {
             lifecycle.addObserver(this)
