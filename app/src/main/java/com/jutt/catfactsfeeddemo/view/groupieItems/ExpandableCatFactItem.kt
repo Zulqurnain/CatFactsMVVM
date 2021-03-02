@@ -22,8 +22,6 @@ class ExpandableCatFactItem(
 
     override fun bind(viewBinding: LayoutTextItemBinding, position: Int) {
         super.bind(viewBinding, position)
-
-        // Initial icon state -- not animated.
         viewBinding.icon.visibility = View.VISIBLE
         viewBinding.icon.setImageResource(if (expandableGroup!!.isExpanded) R.drawable.collapse else R.drawable.expand)
         viewBinding.icon.setOnClickListener {

@@ -1,7 +1,5 @@
 package com.jutt.catfactsfeeddemo.viewmodels
 
-import android.content.Context
-import androidx.hilt.Assisted
 import androidx.lifecycle.*
 import com.jutt.catfactsfeeddemo.R
 import com.jutt.catfactsfeeddemo.architecture.Event
@@ -10,18 +8,14 @@ import com.jutt.catfactsfeeddemo.data.repositories.CatsFactsRepository
 import com.jutt.catfactsfeeddemo.data.repositories.DatabaseRepository
 import com.jutt.catfactsfeeddemo.data.repositories.ResourcesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val resourcesRepository: ResourcesRepository,
     private val catsFactsRepository: CatsFactsRepository,
-    val database: DatabaseRepository,
-    val savedState: SavedStateHandle
+    val database: DatabaseRepository
 ) : ViewModel() {
 
     object Events {
@@ -41,9 +35,6 @@ class HomeViewModel @Inject constructor(
     val successMessage: LiveData<Event<String>> get() = _successMessage
 
     val catFactsList: LiveData<List<AnimalFact>> get() = database.getAllFacts()
-
-    private val _toolbarVisible = MutableLiveData<Boolean>()
-    val toolbarVisible: LiveData<Boolean> get() = _toolbarVisible
 
     override fun onCleared() {
         super.onCleared()
@@ -80,7 +71,4 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun setToolbarVisibility(visible: Boolean) {
-        _toolbarVisible.postValue(visible)
-    }
 }

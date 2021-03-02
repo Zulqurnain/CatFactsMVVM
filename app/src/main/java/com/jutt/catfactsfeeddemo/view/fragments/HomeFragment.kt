@@ -3,7 +3,6 @@ package com.jutt.catfactsfeeddemo.view.fragments
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.TimeUtils
 import com.jutt.catfactsfeeddemo.R
@@ -79,6 +78,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             layoutManager = LinearLayoutManager(context)
             adapter = expandableAdapterForFacts
         }
-        viewModel.setToolbarVisibility(true)
     }
 }

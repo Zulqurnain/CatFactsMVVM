@@ -58,10 +58,6 @@ class HomeActivity : BaseNavigationActivity<ActivityHomeBinding>() {
     }
 
     private fun setupObservers() {
-        viewModel.toolbarVisible.observe(this,{
-            binding.toolbarView.toolbar.isVisible = it
-        })
-
         viewModel.showLoader.observe(this, LoaderObserver(progressView = binding.progressBar))
 
         viewModel.successMessage.observe(this, EventObserver { message ->

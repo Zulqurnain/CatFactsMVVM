@@ -23,12 +23,12 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/progress_bar"
-        android:layout_width="@dimen/margin_design_258"
-        android:layout_height="@dimen/margin_design_258"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
-        app:cardCornerRadius="@dimen/margin_design_40"
+        app:cardCornerRadius="@dimen/_10sdp"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/colorPrimary"
-        app:strokeWidth="@dimen/margin_design_3"
+        app:strokeWidth="0.5dp"
         tools:visibility="visible">
 
         <ImageView

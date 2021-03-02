@@ -9,8 +9,6 @@ import kotlin.concurrent.withLock
 
 @Singleton
 class DatabaseRepository @Inject constructor(private val database: AppDatabase) {
-
-
     fun catFactsDao() = database.catFactsDao()
 
     fun getAllFacts()  = catFactsDao().loadAll()
@@ -18,13 +16,7 @@ class DatabaseRepository @Inject constructor(private val database: AppDatabase) 
     suspend fun clearAllFacts() {
         catFactsDao().clearTable()
     }
-
     suspend fun upsertCatFact(vararg items: AnimalFact){
         catFactsDao().insertOrUpdate(items.toList())
     }
-
-    suspend fun addAllFacts(facts: List<AnimalFact>){
-        catFactsDao().insertOrUpdate(facts)
-    }
-
 }

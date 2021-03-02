@@ -27,26 +27,6 @@ fun AppCompatActivity.setupActionBar(toolbar: Toolbar?, action: ActionBar.() -> 
     }
 }
 
-fun AppCompatActivity.replaceFragmentInActivity(
-    fragment: Fragment,
-    frameId: Int,
-    addToBackStack: Boolean = false,
-    backStackEntry: String? = null,
-    @AnimatorRes @AnimRes @Size(value = 2) pushAnimation: IntArray? = null,
-    @AnimatorRes @AnimRes @Size(value = 2) popAnimation: IntArray? = null
-) = supportFragmentManager.transact(
-    addToBackStack = addToBackStack,
-    backStackEntry = backStackEntry,
-    pushAnimation = pushAnimation,
-    popAnimation = popAnimation
-) {
-    replace(frameId, fragment)
-}
-
-fun AppCompatActivity.getFragmentFromContainer(@IdRes containerId: Int): Fragment? {
-    return supportFragmentManager.findFragmentById(containerId)
-}
-
 fun AppCompatActivity.doFullScreen(
         rootOfLayout: View,
         makeStatusBarTransparent: Boolean = false,

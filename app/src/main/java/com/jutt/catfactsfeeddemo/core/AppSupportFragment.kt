@@ -8,11 +8,8 @@ import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import dagger.hilt.android.AndroidEntryPoint
-import pub.devrel.easypermissions.AppSettingsDialog
-import pub.devrel.easypermissions.EasyPermissions
-import timber.log.Timber
-abstract class AppSupportFragment : Fragment(), EasyPermissions.PermissionCallbacks {
+
+abstract class AppSupportFragment : Fragment(){
 
     @StringRes
     open val titleResId: Int? = null
@@ -31,33 +28,4 @@ abstract class AppSupportFragment : Fragment(), EasyPermissions.PermissionCallba
      */
     open fun onNavigateBack(): Boolean = true
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, @NonNull perms: List<String>) {
-        Timber.i("Following permissions have been granted: $perms")
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, @NonNull perms: List<String>) {
-        Timber.i("Following permissions have been denied: $perms")
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            AppSettingsDialog.Builder(this).build().show()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE -> {
-            }
-            else -> {
-                super.onActivityResult(requestCode, resultCode, data)
-            }
-        }
-    }
 }
