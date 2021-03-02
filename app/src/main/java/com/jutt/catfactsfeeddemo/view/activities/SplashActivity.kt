@@ -4,23 +4,17 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
-import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.jutt.catfactsfeeddemo.R
 import com.jutt.catfactsfeeddemo.core.BaseActivity
 import com.jutt.catfactsfeeddemo.databinding.ActivitySplashBinding
 import com.jutt.catfactsfeeddemo.extensions.doFullScreen
-import com.jutt.catfactsfeeddemo.viewmodels.HomeViewModel
-import com.jutt.catfactsfeeddemo.viewmodels.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
-
-    private val viewModel by viewModels<SplashViewModel>()
 
     override val bindingInflater: (LayoutInflater) -> ActivitySplashBinding
         get() = ActivitySplashBinding::inflate

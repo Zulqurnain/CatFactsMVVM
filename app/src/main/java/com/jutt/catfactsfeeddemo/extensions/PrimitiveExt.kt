@@ -10,7 +10,6 @@ import android.text.style.URLSpan
 import android.text.util.Linkify
 import androidx.annotation.StringRes
 import androidx.core.text.HtmlCompat
-import com.jutt.catfactsfeeddemo.extensions.timeInSeconds
 import java.text.DecimalFormatSymbols
 import java.util.*
 import kotlin.collections.HashMap
@@ -21,16 +20,6 @@ val Boolean.toInt get() = if (this) 1 else 0
 val Long.toSeconds get() = this / 1000
 val Long.toMillis get() = this * 1000
 val Long.toTimeString get() = this.toString().padStart(length = 2, padChar = '0')
-
-/**
- * Converts a long into Date object
- *
- * @receiver Long Expects long in seconds since 1970s
- * @return Date
- */
-fun Long.parseAsTime(): Date = Calendar.getInstance().apply {
-    timeInSeconds = this@parseAsTime
-}.time
 
 
 /**
@@ -100,24 +89,3 @@ fun String.trimLastN(
 
     return result
 }
-
-/**
- * Create a formatted CharSequence from a string resource containing arguments and HTML formatting
- *
- * The string resource must be wrapped in a CDATA section so that the HTML formatting is conserved.
- *
- * Example of an HTML formatted string resource:
- * <string name="html_formatted"><![CDATA[ bold text: <B>%1$s</B> ]]></string>
- */
-fun Context.getText(@StringRes id: Int, vararg args: Any?): CharSequence {
-    val text = String.format(getString(id), *args)
-    return HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_COMPACT)
-}
-
-@Suppress("DEPRECATION")
-fun String.fromHtml(): Spanned = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-    Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
-} else {
-    Html.fromHtml(this)
-}
-

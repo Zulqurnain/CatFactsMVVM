@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.KeyboardUtils
-import com.jutt.catfactsfeeddemo.architecture.Event
 import com.jutt.catfactsfeeddemo.R
 import com.jutt.catfactsfeeddemo.core.AppSupportFragment
 

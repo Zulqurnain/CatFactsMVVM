@@ -1,8 +1,8 @@
 package com.jutt.catfactsfeeddemo.extensions
 
+import android.util.Log
 import org.json.JSONObject
 import retrofit2.Response
-import timber.log.Timber
 
 val <T> Response<T>.string: String?
     get() {
@@ -21,7 +21,7 @@ val <T> Response<T>.string: String?
                 }
                 return message
             } catch (ex: Exception) {
-                Timber.e(ex, "Unable to parse error response")
+                Log.e("retrofit","Unable to parse error response",ex)
             }
         }
         return null
@@ -34,6 +34,6 @@ private val JSONObject.optMessageFromArray: String?
             .filterNotNull()
             .joinToString(separator = "\n") { it.trim('"') }
     } catch (ex: Exception) {
-        Timber.e(ex, "Unable to parse error body")
+        Log.e("retrofit","Unable to parse error body",ex)
         null
     }

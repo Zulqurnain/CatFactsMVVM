@@ -4,7 +4,6 @@ import android.view.View
 import com.blankj.utilcode.util.TimeUtils
 import com.jutt.catfactsfeeddemo.R
 import com.jutt.catfactsfeeddemo.databinding.LayoutDetailCardBinding
-import com.jutt.catfactsfeeddemo.databinding.LayoutTextItemBinding
 import com.jutt.catfactsfeeddemo.utils.loadImageFromDrawable
 import com.jutt.catfactsfeeddemo.utils.loadImageFromUrl
 import com.xwray.groupie.viewbinding.BindableItem

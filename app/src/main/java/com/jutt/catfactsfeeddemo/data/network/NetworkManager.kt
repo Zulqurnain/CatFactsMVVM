@@ -1,5 +1,6 @@
 package com.jutt.catfactsfeeddemo.data.network
 
+import android.util.Log
 import com.jutt.catfactsfeeddemo.BuildConfig
 import com.jutt.catfactsfeeddemo.data.models.AnimalFact
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -12,9 +13,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import timber.log.Timber
 import java.net.ConnectException
 import java.net.HttpURLConnection
 import java.net.SocketException
@@ -26,19 +24,16 @@ import javax.inject.Singleton
 @Singleton
 class NetworkManager @Inject constructor(private val catsAPIService: ApiService) {
 
-    fun <T> execute(call: Call<T>, callback: Callback<T>) {
-        call.enqueue(callback)
-    }
-
     fun <T> execute(call: Call<T>): Response<T?> {
         return try {
             val response = call.execute()
             if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
 //                TODO if user is Logged in Revoke Authentication and LOGOUT
+                Log.e("executeRetrofit","AUTH issue")
             }
             response
         } catch (ex: Exception) {
-            Timber.e(ex)
+            Log.e("networkManager", "execute: ", ex)
             when (ex) {
                 is ConnectException, is UnknownHostException, is SocketException -> {
                     Response.error(
@@ -53,10 +48,6 @@ class NetworkManager @Inject constructor(private val catsAPIService: ApiService)
                     )
             }
         }
-    }
-
-    private fun textToRequestBody(text: String): RequestBody {
-        return text.toRequestBody("text/plain".toMediaTypeOrNull())
     }
 
     private fun textToResponseBody(text: String): ResponseBody {

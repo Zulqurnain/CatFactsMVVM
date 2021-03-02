@@ -21,7 +21,6 @@ android {
             annotationProcessorOptions {
                 arguments += [
                         "room.schemaLocation" : "$projectDir/schemas".toString(),
-//                        "dagger.gradle.incremental" : "true",
                         "room.incremental" : "true",
                 ]
             }
@@ -72,11 +71,10 @@ android {
     buildTypes {
         debug {
             debuggable true
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
             versionNameSuffix "-debug (${appVersionCode})"
             applicationIdSuffix ".internal"
-//            manifestPlaceholders.put("crashlyticsEnabled", true)
         }
         internal {
             debuggable true
@@ -89,7 +87,6 @@ android {
             signingConfig signingConfigs.internalConfig
             versionNameSuffix " (${stagingVersionSuffix})"
             applicationIdSuffix ".internal"
-//            manifestPlaceholders.put("crashlyticsEnabled", true)
         }
         release {
             debuggable false
@@ -97,7 +94,6 @@ android {
             shrinkResources false
             matchingFallbacks = ['debug']
             signingConfig signingConfigs.storeConfig
-//            manifestPlaceholders.put("crashlyticsEnabled", true)
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -163,17 +159,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation platform("com.google.firebase:firebase-bom:$rootProject.firebaseBomVersion")
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
     implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
     implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
-    implementation "androidx.lifecycle:lifecycle-process:$rootProject.lifecycleProcessVersion"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
     implementation "androidx.multidex:multidex:$rootProject.multidexVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
@@ -182,18 +173,8 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     implementation "com.google.android.material:material:$rootProject.materialDesignVersion"
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
-    implementation "com.jakewharton.timber:timber:$rootProject.timber"
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$rootProject.kotlinVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
-    implementation "pub.devrel:easypermissions:$rootProject.easyPermissions"
-    implementation "androidx.work:work-runtime-ktx:$rootProject.workRuntimeVersion"
-    implementation 'com.google.firebase:firebase-messaging-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okHttpLoggingInterceptorVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
@@ -209,24 +190,17 @@ dependencies {
 
     implementation "com.intuit.sdp:sdp-android:$rootProject.androidSDP"
     implementation "com.intuit.ssp:ssp-android:$rootProject.androidSSP"
-    implementation "com.github.vipafattal:KotlinRecycler:$rootProject.kotlinRecycler"
 
     implementation "com.xwray:groupie:$rootProject.groupie_version"
     implementation "com.xwray:groupie-viewbinding:$rootProject.groupie_version"
 
     implementation 'com.blankj:utilcodex:1.30.5'
 
-    debugImplementation "com.amitshekhar.android:debug-db:$rootProject.debugDBAndroid"
-
-    implementation "io.coil-kt:coil:0.11.0"
-    implementation "io.coil-kt:coil-svg:0.11.0"
-
     testImplementation 'junit:junit:4.13.2'
     testImplementation "com.google.truth:truth:1.0.1"
 
     androidTestImplementation "com.google.truth:truth:1.0.1"
     androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.2'
-    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:2.12.1"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1"
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
