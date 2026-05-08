@@ -13,7 +13,7 @@ def appVersionName = "1.0.1"
 def stagingVersionSuffix = "Build-1"
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 35
     buildToolsVersion "30.0.2"
 
     defaultConfig {
